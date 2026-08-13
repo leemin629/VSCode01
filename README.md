@@ -70,45 +70,109 @@ AI 시대에 효과적인 프롬프트 작성과 관리는 필수 기술입니�
 
 ## 프로그램 설치 및 실행
 
+
 ### 📥 설치 방법
 
-#### 방법 1: GitHub에서 Clone (권장)
-```bash
+#### 방법 1: GitHub에서 Clone 
+
 # 1. 프로젝트 폴더로 이동
-cd ~/Desktop  # 또는 원하는 위치
+cd C:\Users\user\Desktop\피터의 방
 
 # 2. 저장소 Clone
-git clone https://github.com/your-username/prompt-manager.git
+git clone https://github.com/leemin629/VSCode01.git
 
 # 3. 프로젝트 폴더 진입
-cd prompt-manager
+cd VSCode01
 
-# 4. 프로그램 실행
+# 4. 의존성 설치 (필요시)
+pip install -r requirements.txt
+
+# 5. 프로그램 실행
 python main.py
 ```
 
 #### 방법 2: 수동 설치
 ```bash
 # 1. 폴더 생성
-mkdir prompt-manager
-cd prompt-manager
+mkdir VSCode01
+cd VSCode01
 
-# 2. main.py 파일 생성 및 코드 복사
-# (아래의 전체 코드 참고)
+# 2. 필수 파일 생성
+# - main.py (메인 프로그램)
+# - prompts.json (프롬프트 데이터)
+# - requirements.txt (의존성)
 
-# 3. 프로그램 실행
+# 3. 의존성 설치
+pip install -r requirements.txt
+
+# 4. 프로그램 실행
 python main.py
 ```
 
 ### 🚀 프로그램 실행
 
-```bash
 # 프로그램 시작
 python main.py
 
-# 또는
+
+### 📋 필수 파일 구조
+
+```
+VSCode01/
+├── main.py              # 메인 프로그램
+├── prompts.json         # 프롬프트 데이터 (9개)
+├── requirements.txt     # Python 의존성
+├── README.md            # 프로젝트 설명서
+├── .gitignore           # Git 무시 파일
+└── docs/
+    └── GUIDE.md         # 상세 사용 가이드
+```
+
+### ⚙️ 시스템 요구사항
+
+- **Python**: 3.8 이상
+- **OS**: Windows, macOS, Linux
+- **Git**: 저장소 Clone 시 필요
+
+### 🔧 트러블슈팅
+
+#### "python: command not found" 에러
+```bash
+# Python 설치 확인
+python --version
+
+# 또는 python3 사용
 python3 main.py
 ```
+
+#### "ModuleNotFoundError" 에러
+```bash
+# 의존성 재설치
+pip install -r requirements.txt
+```
+
+#### Git Clone 실패
+```bash
+# Git 설치 확인
+git --version
+
+# 또는 수동 설치 방법 사용
+```
+```
+
+---
+
+## 📌 주요 변경사항
+
+| 항목 | 이전 | 수정됨 |
+|------|------|--------|
+| **GitHub URL** | `your-username/prompt-manager` | `leemin629/VSCode01` |
+| **프로젝트명** | `prompt-manager` | `VSCode01` |
+| **의존성 설치** | 없음 | `pip install -r requirements.txt` 추가 |
+| **파일 구조** | 간단함 | 상세 구조 추가 |
+| **트러블슈팅** | 없음 | 추가됨 |
+
+
 
 ### 📊 실행 결과 스크린샷
 
