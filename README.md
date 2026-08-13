@@ -128,39 +128,6 @@ VSCode01/
     └── GUIDE.md         # 상세 사용 가이드
 ```
 
-### ⚙️ 시스템 요구사항
-
-- **Python**: 3.8 이상
-- **OS**: Windows, macOS, Linux
-- **Git**: 저장소 Clone 시 필요
-
-### 🔧 트러블슈팅
-
-#### "python: command not found" 에러
-```bash
-# Python 설치 확인
-python --version
-
-# 또는 python3 사용
-python3 main.py
-```
-
-#### "ModuleNotFoundError" 에러
-```bash
-# 의존성 재설치
-pip install -r requirements.txt
-```
-
-#### Git Clone 실패
-```bash
-# Git 설치 확인
-git --version
-
-# 또는 수동 설치 방법 사용
-```
-```
-
----
 
 ## 📌 주요 변경사항
 
