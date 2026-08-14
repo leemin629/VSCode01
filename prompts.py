@@ -111,3 +111,15 @@ def display_prompt_detail(prompt_id):
         print(f"📄 내용:\n{prompt['content']}\n")
     else:
         print("❌ 프롬프트를 찾을 수 없습니다.")
+
+ def update_prompt(prompt_id, category, title, content):
+    """프롬프트 수정"""
+    data = load_prompts()
+    for prompt in data['prompts']:
+        if prompt['id'] == prompt_id:
+            prompt['category'] = category
+            prompt['title'] = title
+            prompt['content'] = content
+            save_data(data)
+            return True
+    return False       
