@@ -44,21 +44,30 @@ def show_business_menu():
     choice = input("선택: ")
     return choice
 
-
 def handle_education(choice):
-    """학습/교육 기능 처리"""
+    """학습/교육 카테고리 처리"""
+    
     if choice == "1":
-        print("\n✍️  강의안 작성 프롬프트를 불러왔습니다.")
+        print("\n🎓 작업안 작성 프롬프트를 불러왔습니다.")
+        name = input("프롬프트 이름: ")
+        content = input("프롬프트 내용: ")
+        print(f"'{name}' 프롬프트가 저장되었습니다!")
+    
     elif choice == "2":
-        print("\n✍️  요약문 작성 프롬프트를 불러왔습니다.")
+        print("\n🎓 요청문 작성 프롬프트를 불러왔습니다.")
+    
     elif choice == "3":
-        print("\n✍️  설명글 작성 프롬프트를 불러왔습니다.")
+        print("\n🎓 질문을 작성 프롬프트를 불러왔습니다.")
+    
     elif choice == "4":
-        print("\n✍️  퀴즈 생성 프롬프트를 불러왔습니다.")
+        print("\n🎓 귀조 생성 프롬프트를 불러왔습니다.")
+    
     elif choice == "0":
-        return False  # 돌아가기
+        return False
+    
     else:
         print("\n❌ 잘못된 선택입니다.")
+    
     return True
 
 
