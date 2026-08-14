@@ -134,3 +134,16 @@ def delete_prompt(prompt_id):
         save_data(data)
         return True
     return False
+
+def search_prompts(keyword):
+    """키워드로 프롬프트 검색"""
+    data = load_prompts()
+    results = []
+    
+    for prompt in data['prompts']:
+        if (keyword.lower() in prompt['title'].lower() or 
+            keyword.lower() in prompt['content'].lower() or
+            keyword.lower() in prompt['category'].lower()):
+            results.append(prompt)
+    
+    return results
