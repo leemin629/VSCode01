@@ -3,6 +3,7 @@ from prompts import (
     get_all_prompts, 
     get_prompts_by_category, 
     get_prompt_by_id
+    search_prompts
 )
 
 def view_all_prompts():
@@ -60,6 +61,24 @@ def view_prompt_detail():
     except ValueError:
         print("\n숫자를 입력해주세요.\n")
 
+def search_prompt():
+    """프롬프트 검색"""
+    keyword = input("검색 키워드를 입력하세요: ").strip()
+    results = search_prompts(keyword)
+    
+    if not results:
+        print(f"\n'{keyword}'에 해당하는 프롬프트가 없습니다.\n")
+        return
+    
+    print("\n" + "="*50)
+    print(f"🔍 '{keyword}' 검색 결과")
+    print("="*50)
+    for prompt in results:
+        print(f"\n[ID: {prompt['id']}] {prompt['title']}")
+        print(f"카테고리: {prompt['category']}")
+        print(f"내용: {prompt['content'][:50]}...")
+    print("\n" + "="*50 + "\n")
+
 def view_menu():
     """조회 메뉴"""
     while True:
@@ -80,6 +99,8 @@ def view_menu():
             view_prompts_by_category()
         elif choice == "3":
             view_prompt_detail()
+        elif choice == "4":  
+            search_prompt()
         elif choice == "0":
             break
         else:
