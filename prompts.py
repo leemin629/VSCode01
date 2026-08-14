@@ -123,3 +123,14 @@ def display_prompt_detail(prompt_id):
             save_data(data)
             return True
     return False       
+
+def delete_prompt(prompt_id):
+    """프롬프트 삭제"""
+    data = load_prompts()
+    original_length = len(data['prompts'])
+    data['prompts'] = [p for p in data['prompts'] if p['id'] != prompt_id]
+    
+    if len(data['prompts']) < original_length:
+        save_data(data)
+        return True
+    return False
