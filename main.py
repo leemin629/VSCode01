@@ -1,118 +1,116 @@
-print("Hello, Peter!")
+from prompts import (
+    add_prompt, 
+    get_all_prompts, 
+    get_prompts_by_category, 
+    get_prompt_by_id
+)
 
-# main.py
-
-def show_main_menu():
-    """메인 메뉴 표시"""
-    print("\n" + "="*40)
-    print("🤖 프롬프트 관리 프로그램")
-    print("="*40)
-    print("1. 학습/교육")
-    print("2. 비즈니스디자인")
-    print("0. 종료")
-    print("="*40)
-    choice = input("선택: ")
-    return choice
-
-
-def show_education_menu():
-    """학습/교육 카테고리 메뉴"""
-    print("\n" + "-"*40)
-    print("📚 학습/교육")
-    print("-"*40)
-    print("1. 강의안 작성")
-    print("2. 요약문 작성")
-    print("3. 설명글 작성")
-    print("4. 퀴즈 생성")
-    print("0. 돌아가기")
-    print("-"*40)
-    choice = input("선택: ")
-    return choice
-
-
-def show_business_menu():
-    """비즈니스디자인 카테고리 메뉴"""
-    print("\n" + "-"*40)
-    print("🎨 비즈니스디자인")
-    print("-"*40)
-    print("1. 슬라이드 디자인")
-    print("2. 포스터 디자인")
-    print("3. 명함 디자인")
-    print("4. 로고 디자인")
-    print("0. 돌아가기")
-    print("-"*40)
-    choice = input("선택: ")
-    return choice
-
-def handle_education(choice):
-    """학습/교육 카테고리 처리"""
+def view_all_prompts():
+    """모든 프롬프트 조회"""
+    prompts = get_all_prompts()
+    if not prompts:
+        print("\n저장된 프롬프트가 없습니다.\n")
+        return
     
-    if choice == "1":
-        print("\n🎓 작업안 작성 프롬프트를 불러왔습니다.")
-        name = input("프롬프트 이름: ")
-        content = input("프롬프트 내용: ")
-        print(f"'{name}' 프롬프트가 저장되었습니다!")
-    
-    elif choice == "2":
-        print("\n🎓 요청문 작성 프롬프트를 불러왔습니다.")
-    
-    elif choice == "3":
-        print("\n🎓 질문을 작성 프롬프트를 불러왔습니다.")
-    
-    elif choice == "4":
-        print("\n🎓 귀조 생성 프롬프트를 불러왔습니다.")
-    
-    elif choice == "0":
-        return False
-    
-    else:
-        print("\n❌ 잘못된 선택입니다.")
-    
-    return True
+    print("\n" + "="*50)
+    print("📚 전체 프롬프트")
+    print("="*50)
+    for prompt in prompts:
+        print(f"\n[ID: {prompt['id']}] {prompt['title']}")
+        print(f"카테고리: {prompt['category']}")
+        print(f"내용: {prompt['content'][:50]}...")
+    print("\n" + "="*50 + "\n")
 
+def view_prompts_by_category():
+    """카테고리별 프롬프트 조회"""
+    category = input("조회할 카테고리를 입력하세요: ").strip()
+    prompts = get_prompts_by_category(category)
+    
+    if not prompts:
+        print(f"\n'{category}' 카테고리에 프롬프트가 없습니다.\n")
+        return
+    
+    print("\n" + "="*50)
+    print(f"📚 {category} 카테고리 프롬프트")
+    print("="*50)
+    for prompt in prompts:
+        print(f"\n[ID: {prompt['id']}] {prompt['title']}")
+        print(f"내용: {prompt['content'][:50]}...")
+    print("\n" + "="*50 + "\n")
 
-def handle_business(choice):
-    """비즈니스디자인 기능 처리"""
-    if choice == "1":
-        print("\n🎨 슬라이드 디자인 프롬프트를 불러왔습니다.")
-    elif choice == "2":
-        print("\n🎨 포스터 디자인 프롬프트를 불러왔습니다.")
-    elif choice == "3":
-        print("\n🎨 명함 디자인 프롬프트를 불러왔습니다.")
-    elif choice == "4":
-        print("\n🎨 로고 디자인 프롬프트를 불러왔습니다.")
-    elif choice == "0":
-        return False  # 돌아가기
-    else:
-        print("\n❌ 잘못된 선택입니다.")
-    return True
-
-
-def main():
-    """메인 함수 - 프로그램 실행"""
-    while True:
-        choice = show_main_menu()
+def view_prompt_detail():
+    """프롬프트 상세 조회"""
+    view_all_prompts()
+    try:
+        prompt_id = int(input("조회할 프롬프트 ID를 입력하세요: "))
+        prompt = get_prompt_by_id(prompt_id)
         
-        if choice == "1":  # 학습/교육
-            while True:
-                sub_choice = show_education_menu()
-                if not handle_education(sub_choice):
-                    break
-                    
-        elif choice == "2":  # 비즈니스디자인
-            while True:
-                sub_choice = show_business_menu()
-                if not handle_business(sub_choice):
-                    break
-                    
-        elif choice == "0":  # 종료
-            print("\n👋 프로그램을 종료합니다.")
+        if not prompt:
+            print("\n해당 ID의 프롬프트가 없습니다.\n")
+            return
+        
+        print("\n" + "="*50)
+        print("📖 프롬프트 상세 정보")
+        print("="*50)
+        print(f"ID: {prompt['id']}")
+        print(f"제목: {prompt['title']}")
+        print(f"카테고리: {prompt['category']}")
+        print(f"내용:\n{prompt['content']}")
+        print("="*50 + "\n")
+    except ValueError:
+        print("\n숫자를 입력해주세요.\n")
+
+def view_menu():
+    """조회 메뉴"""
+    while True:
+        print("="*50)
+        print("📖 프롬프트 조회")
+        print("="*50)
+        print("1. 전체 프롬프트 조회")
+        print("2. 카테고리별 프롬프트 조회")
+        print("3. 프롬프트 상세 조회")
+        print("0. 돌아가기")
+        print("="*50)
+        
+        choice = input("선택: ").strip()
+        
+        if choice == "1":
+            view_all_prompts()
+        elif choice == "2":
+            view_prompts_by_category()
+        elif choice == "3":
+            view_prompt_detail()
+        elif choice == "0":
             break
         else:
-            print("\n❌ 잘못된 선택입니다.")
+            print("\n잘못된 선택입니다.\n")
 
+def main_menu():
+    """메인 메뉴"""
+    while True:
+        print("="*50)
+        print("🎯 프롬프트 관리 프로그램")
+        print("="*50)
+        print("1. 프롬프트 저장")
+        print("2. 프롬프트 조회")
+        print("0. 종료")
+        print("="*50)
+        
+        choice = input("선택: ").strip()
+        
+        if choice == "1":
+            category = input("카테고리: ").strip()
+            title = input("제목: ").strip()
+            content = input("내용: ").strip()
+            add_prompt(category, title, content)
+            print("\n✅ 프롬프트가 저장되었습니다.\n")
+        elif choice == "2":
+            view_menu()
+        elif choice == "0":
+            print("\n👋 프로그램을 종료합니다.\n")
+            break
+        else:
+            print("\n잘못된 선택입니다.\n")
 
 if __name__ == "__main__":
-    main()
-
-   
+    main_menu()
