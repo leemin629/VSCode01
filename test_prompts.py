@@ -1,19 +1,20 @@
 import json
+from prompts import save_prompt, load_prompts, get_prompts_by_category
 
-# prompts.json 파일 읽기
-with open('prompts.json', 'r', encoding='utf-8') as f:
-    data = json.load(f)
+print("=== 프롬프트 저장 테스트 ===")
+save_prompt("AI", "프롬프트 작성법", "좋은 프롬프트를 작성하는 방법")
+save_prompt("Python", "리스트 사용법", "Python 리스트의 기본 사용법")
 
-# 올바른 접근 방식
-print(f"저장된 카테고리: {list(data['prompts'].keys())}")
+print("\n=== 모든 프롬프트 조회 ===")
+all_prompts = load_prompts()
+print(f"총 {len(all_prompts['prompts'])}개의 프롬프트")
 
-# 각 카테고리별 프롬프트 개수
-for category, prompts in data['prompts'].items():
-    print(f"{category}: {len(prompts)}개")
+print("\n=== AI 카테고리만 조회 ===")
+ai_prompts = get_prompts_by_category("AI")
+for prompt in ai_prompts:
+    print(f"- {prompt['title']}")
 
-# 첫 번째 프롬프트 확인
-first_category = list(data['prompts'].keys())[0]
-first_prompt = data['prompts'][first_category][0]
-print(f"\n첫 번째 프롬프트:")
-print(f"제목: {first_prompt['title']}")
-print(f"설명: {first_prompt['description']}")
+print("\n=== Python 카테고리만 조회 ===")
+python_prompts = get_prompts_by_category("Python")
+for prompt in python_prompts:
+    print(f"- {prompt['title']}")

@@ -2,9 +2,51 @@
   "prompts": [
     {
       "id": 1,
-      "category": "1",
-      "title": "1",
-      "content": "1"
+      "category": "AI",
+      "title": "...",
+      "content": "..."
+    },
+    {
+      "id": 2,
+      "category": "AI",
+      "title": "...",
+      "content": "..."
+    },
+    {
+      "id": 3,
+      "category": "AI",
+      "title": "프롬프트 작성법",
+      "content": "좋은 프롬프트를 작성하는 방법"
+    },
+    {
+      "id": 4,
+      "category": "Python",
+      "title": "리스트 사용법",
+      "content": "Python 리스트의 기본 사용법"
+    },
+    {
+      "id": 5,
+      "category": "AI",
+      "title": "프롬프트 작성법",
+      "content": "좋은 프롬프트를 작성하는 방법"
+    },
+    {
+      "id": 6,
+      "category": "Python",
+      "title": "리스트 사용법",
+      "content": "Python 리스트의 기본 사용법"
+    },
+    {
+      "id": 7,
+      "category": "2",
+      "title": "3",
+      "content": "4"
+    },
+    {
+      "id": 8,
+      "category": "2",
+      "title": "3",
+      "content": "4"
     }
   ]
 }

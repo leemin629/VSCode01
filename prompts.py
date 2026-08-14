@@ -112,7 +112,19 @@ def display_prompt_detail(prompt_id):
     else:
         print("❌ 프롬프트를 찾을 수 없습니다.")
 
- def update_prompt(prompt_id, category, title, content):
+def search_prompts(keyword):
+    """키워드로 프롬프트 검색"""
+    prompts = get_all_prompts()
+    results = []
+    
+    for prompt in prompts:
+        if keyword.lower() in prompt['title'].lower() or \
+           keyword.lower() in prompt['content'].lower():
+            results.append(prompt)
+    
+    return results
+
+def update_prompt(prompt_id, category, title, content):
     """프롬프트 수정"""
     data = load_prompts()
     for prompt in data['prompts']:
