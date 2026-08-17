@@ -1,16 +1,32 @@
 import json
 import os
 import re
+import sys
 
 FILE_NAME = "prompts.json"
+
+EXIT_COMMANDS = {"q", "quit", "exit"}
+
+def safe_exit():
+    print("프로그램을 종료합니다.")
+    sys.exit(0)
+
+def check_exit(value):
+    if value.strip().lower() in EXIT_COMMANDS:
+        safe_exit()
+
+def safe_input(message=""):
+    value = input(message).strip()
+    check_exit(value)
+    return value
+
 
 CATEGORIES = {
     "1": "학습/교육",
     "2": "비즈니스 디자인"
 }
 
-INITIAL_PROMPTS = [
-    {
+INITIAL_PROMPTS = [    {
         "id": "1-1",
         "category": "학습/교육",
         "title": "강의안 생성 프롬프트",
@@ -148,10 +164,11 @@ INITIAL_PROMPTS = [
     }
 ]
 
-
 def save_prompts(prompts):
     with open(FILE_NAME, "w", encoding="utf-8") as file:
         json.dump(prompts, file, ensure_ascii=False, indent=2)
+
+
 
 
 def load_prompts():
@@ -198,23 +215,29 @@ def initialize_prompts():
         return load_prompts()
 
 
-def input_non_empty(message):
+def safe_input_non_empty(message):
     while True:
-        value = input(message).strip()
+        value = safe_input(message)
+
         if value:
             return value
+
         print("⚠️ 빈 값은 입력할 수 없습니다.")
 
 
-def input_multiline(message):
+def safe_input_multiline(message):
     print(message)
     print("입력을 마치려면 END 를 입력하세요.")
+    print("즉시 종료하려면 q, quit, exit 중 하나를 입력하세요.")
+
     lines = []
 
     while True:
-        line = input()
+        line = safe_input()
+
         if line.strip().upper() == "END":
             break
+            
         lines.append(line)
 
     return "\n".join(lines).strip()
@@ -222,7 +245,7 @@ def input_multiline(message):
 
 def input_multiline_non_empty(message):
     while True:
-        text = input_multiline(message)
+        text = safe_input_multiline(message)
         if text:
             return text
         print("⚠️ 빈 값은 입력할 수 없습니다.")
@@ -240,7 +263,7 @@ def fill_prompt_content(content):
         return content
 
     for ph in unique_placeholders:
-        user_input = input_non_empty(f"{ph} 입력: ")
+        user_input = safe_input_non_empty(f"{ph} 입력: ")
         content = content.replace(f"[{ph}]", user_input)
 
     return content
@@ -284,8 +307,9 @@ def choose_category():
         for key, value in CATEGORIES.items():
             print(f"{key}. {value}")
         print("0. 돌아가기")
+        print("q. 프로그램 종료")
 
-        choice = input("선택: ").strip()
+        choice = safe_input("선택: ")
 
         if choice == "0":
             return None
@@ -296,7 +320,11 @@ def choose_category():
 
 
 def show_prompt_detail(prompt, prompts):
+    completed_once = False
+
     while True:
+        has_placeholder = bool(re.search(r"\[[^\]]+\]", prompt["content"]))
+
         print("=" * 60)
         print("📌 프롬프트 상세 정보")
         print("=" * 60)
@@ -308,11 +336,13 @@ def show_prompt_detail(prompt, prompts):
         print(f"활용 예시: {prompt['example']}")
         print(f"즐겨찾기: {'예' if prompt['favorite'] else '아니오'}")
         print("=" * 60)
+
         print("1. 즐겨찾기 추가/제거")
         print("2. 입력값 넣어 완성된 프롬프트 보기")
         print("0. 돌아가기")
+        print("q. 프로그램 종료")
 
-        choice = input("선택: ").strip()
+        choice = safe_input("선택: ").strip()
 
         if choice == "1":
             prompt["favorite"] = not prompt["favorite"]
@@ -321,18 +351,22 @@ def show_prompt_detail(prompt, prompts):
 
         elif choice == "2":
             completed = fill_prompt_content(prompt["content"])
-            print("=" * 60)
+
+            print("\n" + "=" * 60)
             print("✅ 완성된 프롬프트")
             print("=" * 60)
             print(completed)
             print("=" * 60)
+
+            completed_once = True
+
+            safe_input("Enter 키를 누르면 상세정보 화면으로 돌아갑니다...")
 
         elif choice == "0":
             return
 
         else:
             print("⚠️ 올바른 번호를 입력하세요.")
-
 
 def browse_by_category(prompts):
     category = choose_category()
@@ -352,8 +386,9 @@ def browse_by_category(prompts):
         for idx, prompt in enumerate(filtered, start=1):
             print(f"{idx}. {prompt['title']} ({prompt['category']})")
         print("0. 돌아가기")
+        print("q. 프로그램 종료")
 
-        choice = input("번호를 선택하세요 (0: 돌아가기): ").strip()
+        choice = safe_input("번호를 선택하세요 (0: 돌아가기): ").strip()
 
         if choice == "0":
             return
@@ -369,7 +404,7 @@ def browse_by_category(prompts):
 
 
 def search_prompt_menu(prompts):
-    keyword = input_non_empty("검색어를 입력하세요: ").lower()
+    keyword = safe_input_non_empty("검색어를 입력하세요: ").lower()
 
     results = []
     for prompt in prompts:
@@ -392,8 +427,9 @@ def search_prompt_menu(prompts):
         for idx, prompt in enumerate(results, start=1):
             print(f"{idx}. {prompt['title']} ({prompt['category']})")
         print("0. 돌아가기")
+        print("q. 프로그램 종료")
 
-        choice = input("번호를 선택하세요 (0: 돌아가기): ").strip()
+        choice = safe_input("번호를 선택하세요 (0: 돌아가기): ").strip()
 
         if choice == "0":
             return
@@ -419,10 +455,10 @@ def add_prompt(prompts):
     new_prompt = {
         "id": get_next_prompt_id(prompts, category),
         "category": category,
-        "title": input_non_empty("제목: "),
-        "purpose": input_non_empty("목적: "),
-        "content": input_multiline_non_empty("내용을 입력하세요."),
-        "example": input_non_empty("활용 예시: "),
+        "title": safe_input_non_empty("제목: "),
+        "purpose": safe_input_non_empty("목적: "),
+        "content": safe_input_multiline_non_empty("내용을 입력하세요."),
+        "example": safe_input_non_empty("활용 예시: "),
         "favorite": False
     }
 
@@ -432,7 +468,7 @@ def add_prompt(prompts):
 
 
 def edit_prompt(prompts):
-    prompt_id = input_non_empty("수정할 프롬프트 ID를 입력하세요: ")
+    prompt_id = safe_input_non_empty("수정할 프롬프트 ID를 입력하세요: ")
     prompt = find_prompt_by_id(prompts, prompt_id)
 
     if not prompt:
@@ -444,26 +480,26 @@ def edit_prompt(prompts):
     print("=" * 60)
     print("Enter만 누르면 기존 값을 유지합니다.")
 
-    new_title = input(f"제목 [{prompt['title']}]: ").strip()
+    new_title = safe_input(f"제목 [{prompt['title']}]: ").strip()
     if new_title:
         prompt["title"] = new_title
 
-    new_purpose = input(f"목적 [{prompt['purpose']}]: ").strip()
+    new_purpose = safe_input(f"목적 [{prompt['purpose']}]: ").strip()
     if new_purpose:
         prompt["purpose"] = new_purpose
 
     print("현재 내용:")
     print(prompt["content"])
-    change_content = input("내용을 수정하시겠습니까? (y/n): ").strip().lower()
+    change_content = safe_input("내용을 수정하시겠습니까? (y/n): ").strip().lower()
     if change_content == "y":
-        new_content = input_multiline_non_empty("새 내용을 입력하세요.")
+        new_content = safe_input_multiline_non_empty("새 내용을 입력하세요.")
         prompt["content"] = new_content
 
-    new_example = input(f"활용 예시 [{prompt['example']}]: ").strip()
+    new_example = safe_input(f"활용 예시 [{prompt['example']}]: ").strip()
     if new_example:
         prompt["example"] = new_example
 
-    change_category = input("카테고리를 변경하시겠습니까? (y/n): ").strip().lower()
+    change_category = safe_input("카테고리를 변경하시겠습니까? (y/n): ").strip().lower()
     if change_category == "y":
         category = choose_category()
         if category is not None and category != prompt["category"]:
@@ -475,7 +511,7 @@ def edit_prompt(prompts):
 
 
 def delete_prompt(prompts):
-    prompt_id = input_non_empty("삭제할 프롬프트 ID를 입력하세요: ")
+    prompt_id = safe_input_non_empty("삭제할 프롬프트 ID를 입력하세요: ")
     prompt = find_prompt_by_id(prompts, prompt_id)
 
     if not prompt:
@@ -489,7 +525,7 @@ def delete_prompt(prompts):
     print(f"제목: {prompt['title']}")
     print(f"카테고리: {prompt['category']}")
 
-    confirm = input("정말 삭제하시겠습니까? (y/n): ").strip().lower()
+    confirm = safe_input("정말 삭제하시겠습니까? (y/n): ").strip().lower()
     if confirm == "y":
         prompts.remove(prompt)
         save_prompts(prompts)
@@ -512,8 +548,9 @@ def show_favorites(prompts):
         for idx, prompt in enumerate(favorites, start=1):
             print(f"{idx}. {prompt['title']} ({prompt['category']})")
         print("0. 돌아가기")
+        print("q. 프로그램 종료")
 
-        choice = input("번호를 선택하세요 (0: 돌아가기): ").strip()
+        choice = safe_input("번호를 선택하세요 (0: 돌아가기): ").strip()
 
         if choice == "0":
             return
@@ -545,8 +582,9 @@ def show_all_prompts(prompts):
             favorite_mark = "⭐" if prompt["favorite"] else ""
             print(f"{idx}. [{prompt['id']}] {prompt['title']} ({prompt['category']}) {favorite_mark}")
         print("0. 돌아가기")
+        print("q. 프로그램 종료")
 
-        choice = input("번호를 선택하세요 (0: 돌아가기): ").strip()
+        choice = safe_input("번호를 선택하세요 (0: 돌아가기): ").strip()
 
         if choice == "0":
             return
@@ -575,9 +613,9 @@ def main_menu():
         print("5. 프롬프트 수정")
         print("6. 프롬프트 삭제")
         print("7. 즐겨찾기 목록")
-        print("0. 종료")
+        print("q. 종료")
 
-        choice = input("메뉴 선택: ").strip()
+        choice = safe_input("메뉴 선택: ").strip()
 
         if choice == "1":
             show_all_prompts(prompts)
