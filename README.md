@@ -1,4 +1,4 @@
-#  프롬프트 관리 콘솔 프로그램
+#  Python & Git 기초: Git과 함께하는 Python 첫 발자국
 
 GitHub 저장소: [https://github.com/leemin629/VSCode01](https://github.com/leemin629/VSCode01)  
 개발자: `leemin629`
