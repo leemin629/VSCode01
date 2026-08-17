@@ -781,42 +781,17 @@ exit
 
 아래 기능이 동작하는 화면을 스크린샷으로 첨부합니다.
 
-- 메인 메뉴 출력
-- 프롬프트 목록 보기
-- 프롬프트 추가
-- 프롬프트 검색
-- 카테고리별 조회
-- 상세 보기
-- 즐겨찾기 목록
+![main01](https://github.com/leemin629/VSCode01/blob/main/main01.png?raw=true)
 
-예시:
+![main02](https://github.com/leemin629/VSCode01/blob/main/main02.png?raw=true)
 
-```md
-![메인 메뉴](images/main_menu.png)
-![프롬프트 목록](images/prompt_list.png)
-![프롬프트 검색](images/search_result.png)
-![즐겨찾기](images/favorites.png)
-```
+![main03](https://github.com/leemin629/VSCode01/blob/main/main03.png?raw=true)
 
----
+![main04](https://github.com/leemin629/VSCode01/blob/main/main04.png?raw=true)
 
-###  13.2 Git 로그 스크린샷
+![main05](https://github.com/leemin629/VSCode01/blob/main/main05.png?raw=true)
 
-`git log --oneline --graph` 
-'git log --oneline --graph --all --decorate' 명령어를 실행하여 커밋 기록을 확인했습니다.
-예시:
 
-```bash
-git log --oneline --graph
-```
-
-스크린샷 첨부 예시:
-
-```md
-![Git 로그](images/git_log.png)
-```
-
----
 
 ##  14. 과제 요구사항 충족 여부
 
