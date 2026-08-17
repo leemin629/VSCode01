@@ -291,7 +291,7 @@ exit
 최소 요구사항인 10개 이상의 의미 있는 커밋을 충족했습니다.
 
 아래는 `git log --oneline --graph` 결과를 바탕으로 정리한 커밋 기록입니다.
-
+https://github.com/leemin629/VSCode01/blob/main/git%20log%20%EC%83%B7.png
 ```text
 313ff9d (HEAD -> main, origin/main, origin/HEAD) 최종 저장
 09222b8 프로젝트 최종 완성 및 README 정리
