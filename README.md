@@ -3,6 +3,8 @@
 GitHub 저장소: [https://github.com/leemin629/VSCode01](https://github.com/leemin629/VSCode01)  
 개발자: `leemin629`
 
+<img width="995" height="216" alt="git 설정 샷" src="https://github.com/user-attachments/assets/227e48f6-cd17-46d4-9d2f-3963245d9433" />
+
 ---
 
 ##  1. 프로젝트 소개
