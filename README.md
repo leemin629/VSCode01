@@ -291,31 +291,10 @@ exit
 최소 요구사항인 10개 이상의 의미 있는 커밋을 충족했습니다.
 
 아래는 `git log --oneline --graph` 결과를 바탕으로 정리한 커밋 기록입니다.
-https://github.com/leemin629/VSCode01/blob/main/git%20log%20%EC%83%B7.png
-```text
-313ff9d (HEAD -> main, origin/main, origin/HEAD) 최종 저장
-09222b8 프로젝트 최종 완성 및 README 정리
-3d02717 Update README.md
-8679e97 Update README.md
-654ac55 Merge branch 'main' of github.com:leemin629/VSCode01
-a68925c fix: prompts.py line 127 indentation (5 spaces to 4 spaces)
-baf833f feat: 프롬프트 검색 기능 추가
-1217b42 feat: search_prompts() 함수 추가 - 키워드 검색 기능
-ca2ba0d feat: delete_prompt() 함수 추가 - 프롬프트 삭제 기능
-6062a2a feat: update_prompt() 함수 추가 - 프롬프트 수정 기능
-8c35985 feat: display_prompt_detail() 함수 추가 - 프롬프트 상세 조회 기능
-eaa17da 프롬프트 저장/조회 기능 구현 완료
-353b7a8 handle_education 함수 들여쓰기 수정 완료
-157d485 fix: 버그 수정
-3ad5cbd Fix formatting issue in README.md
-29fd0a2 Update README.md
-e641149 Update README.md
-72e8f55 Update README.md
-7d0d602 Create README.md
-551a7c3 Initial commit
-```
 
----
+
+![git log graph](https://github.com/leemin629/VSCode01/blob/main/git%20log%20%EC%83%B7.png?raw=true)
+
 
 ##  10. 커밋별 작업 내용 요약
 
